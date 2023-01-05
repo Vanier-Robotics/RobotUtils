@@ -40,7 +40,7 @@ namespace rou
             }
         }
         
-        void changeMode(Mode*nextMode)
+        void changeMode(Mode* nextMode)
         {
             m_nextMode = nextMode;
         }
