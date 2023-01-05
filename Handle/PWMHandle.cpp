@@ -1,29 +1,12 @@
-#include <stdint.h>
 #include "Handle.cpp"
+#include <stdint.h>
 
-class PWMHandle : public Handle 
-{
-    private:
-        uint8_t port;
-        bool isOutput;
-        bool isReversed;
-    public:
-    PWMHandle(uint8_t x, bool y, bool z){
-        port =x;
-        isOutput = y;
-        isReversed = z;
-    }
+class PWMHandle : public Handle {
 
-    uint8_t getport(){
-        return port;
-    }
-
-    bool getisOutput(){
-        return isOutput;
-    }
-
-    bool getisReversed(){
-        return isReversed;
-    }
-
+public:
+  // PWMHandle(uint8_t port, bool isOutput, bool isReversed) {
+  //   this->port = port;
+  //   this->isOutput = isOutput;
+  //   this->isReversed = isReversed;
+  // }
 };
