@@ -8,7 +8,7 @@
 
 #ifndef _INCLUDE_ROU_MODE_MANAGER_H_
 #define _INCLUDE_ROU_MODE_MANAGER_H_
-#include "Arduino.Extra.h"
+#include "ArduinoExtra.h"
 #include "CrcLib.h"
 #include "ArxSmartPtr.h"
 
