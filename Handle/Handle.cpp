@@ -1,25 +1,14 @@
-#include <stdint.h>
+// #include <stdint.h>
 class Handle {
 protected:
-  uint8_t port;
-  bool isOutput;
-  bool isReversed;
+  bool available;
 
 public:
-  Handle() {}
-  Handle(uint8_t port, bool isOutput, bool isReversed) {
-    this->port = port;
-    this->isOutput = isOutput;
-    this->isReversed = isReversed;
-  }
+  Handle() { available = true; }
 
-  uint8_t getport() { return port; }
+  bool isAvailable() { return available; }
 
-  bool getisOutput() { return isOutput; }
+  void use() { this->available = true; }
 
-  bool status() { return isReversed; }
-
-  void use() { this->isReversed = true; }
-
-  void release() { this->isReversed = false; }
+  void release() { this->available = false; }
 };
