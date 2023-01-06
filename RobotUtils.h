@@ -10,5 +10,6 @@
 #define _INCLUDE_ROU_ROBOT_UTILS_H_
 
 #include "RobotUtils/ModeManager.h"
+#include "RobotUtils/Modules/Modules.h"
 
 #endif // _INCLUDE_ROU_ROBOT_UTILS_H_
