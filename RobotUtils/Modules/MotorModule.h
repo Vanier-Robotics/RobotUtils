@@ -14,12 +14,8 @@
 #include <CrcLib.h>
 #include <cstdint>
 #include "Modules.h"
-
-const int STOP_POSITION;                       
-//find out what a 360deg would be
     
-const int MOTOR_SPEED;                     
-//test out irl
+//as uint8_t as bool like in LEDModule                
 
 namespace rou
 {
@@ -28,21 +24,29 @@ class MotorModule : public Module
 {
     public:
    
+   MotorModule (uint8_t motor)
+    {
+        m_motor = motor;
+    }
+
+   void motorStatus(int8_t motorSpeed)
+   {
+     CrcLib::SetPwmOutput(m_motor,motorSpeed);
+       
+   }
+
     void setup()
     {
-        CrcLib::Initialize(false);                  
-        //initialization phase
-        CrcLib::InitializePwmOutput(CRC_PWM_1);
-        //pin     
-        analogWrite(CRC_PWM_1,MOTOR_SPEED);
-    
+        CrcLib::InitializePwmOutput(motor);
     }
    
     virtual void update()
     {
-
+    
     }
 
+    private:
+    uint8_t m_motor;
 };
 
 } //namespace rou

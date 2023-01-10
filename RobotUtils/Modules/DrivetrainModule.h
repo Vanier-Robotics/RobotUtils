@@ -19,6 +19,7 @@ uint8_t frontLeftMotor = CRC_PWM_2;
 uint8_t backLeftMotor = CRC_PWM_3;
 uint8_t frontRightMotor = CRC_PWM_4;
 uint8_t backRightMotor = CRC_PWM_5;
+//construct
 
 int8_t leftChannel;
 int8_t rightChannel;
@@ -41,13 +42,11 @@ class DrivetrainModule : public Module
     public:
    
     void setup()
-    {
-     CrcLib::Initialize(false);                  
-     //initialization phase
+    {                  
      CrcLib::InitializePwmOutput(frontLeftMotor);
      CrcLib::InitializePwmOutput(backLeftMotor);
      CrcLib::InitializePwmOutput(frontRightMotor);
-     CrcLib::InitializePwmOutput(backRightMotor;
+     CrcLib::InitializePwmOutput(backRightMotor);
      //pins
     }
 

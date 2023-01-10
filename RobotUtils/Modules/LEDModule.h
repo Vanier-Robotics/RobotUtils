@@ -15,34 +15,45 @@
 #include <cstdint>
 #include "Modules.h"
 
-uint8_t lightPin = 1;
+
 
 namespace rou
 {
     class LEDModule : public Module
     {
         public:
+        LEDModule (uint8_t lightPin)
+        {
+            m_lightPin = lightPin;
+        }
 
         void setup()
         {
-            CrcLib::Initialize(false);
-            CrcLib::SetDigitalPinMode(lightPin, INPUT);
+            CrcLib::SetDigitalPinMode(lightPin, OUTPUT);
         }
 
-        bool lightStatus()
+        void lightStatus(bool isOn)
         //verify if light is on or off
         {
-            if (CrcLib::GetDigitalInput(lightPin); == HIGH)
-            return true;
+           if (isOn) 
+           {
+            CrcLib::SetDigitalInput(lightPin,HIGH);
+           }
             
-            else if (CrcLib::GetDigitalInput(lightPin); == LOW)
-            return false;
-        }
+           else 
+           {
+            CrcLib::SetDigitalInput(lightPin,LOW);
+           }
+            
+        };
 
         virtual void update()
         {
 
         }
+
+        private:
+        uint8_t m_lightPin;
     }
 } // rou
 
