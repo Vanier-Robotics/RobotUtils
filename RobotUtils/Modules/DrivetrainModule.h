@@ -44,10 +44,10 @@ class DrivetrainModule : public Module
     {
      CrcLib::Initialize(false);                  
      //initialization phase
-     CrcLib::InitializePwmOutput(CRC_PWM_2);
-     CrcLib::InitializePwmOutput(CRC_PWM_3);
-     CrcLib::InitializePwmOutput(CRC_PWM_4);
-     CrcLib::InitializePwmOutput(CRC_PWM_5);
+     CrcLib::InitializePwmOutput(frontLeftMotor);
+     CrcLib::InitializePwmOutput(backLeftMotor);
+     CrcLib::InitializePwmOutput(frontRightMotor);
+     CrcLib::InitializePwmOutput(backRightMotor;
      //pins
     }
 

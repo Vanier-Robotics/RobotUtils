@@ -30,13 +30,12 @@ namespace rou
         }
 
         bool lightStatus()
+        //verify if light is on or off
         {
-            CrcLib::GetDigitalInput(lightPin);
-
-            if (lightPin == HIGH)
+            if (CrcLib::GetDigitalInput(lightPin); == HIGH)
             return true;
             
-            else if (lightPin == LOW)
+            else if (CrcLib::GetDigitalInput(lightPin); == LOW)
             return false;
         }
 
