@@ -1,7 +1,9 @@
-#include "PWMHandle.cpp"
+#include "Handle_Manager.cpp"
 #include <iostream>
 using namespace std;
-int main(){
-    PWMHandle pwm = PWMHandle(1,false,false); 
-    cout << pwm.getisOutput()<<endl;
+int main() {
+  Handle_Manager hm = Handle_Manager();
+  Handle handle = Handle();
+  hm.addHandle(handle);
+  hm.to_string();
 }
