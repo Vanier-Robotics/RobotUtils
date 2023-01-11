@@ -9,6 +9,11 @@
 #ifndef _INCLUDE_ROU_ROBOT_UTILS_H_
 #define _INCLUDE_ROU_ROBOT_UTILS_H_
 
+// Check if the correct board is selected
+#if !defined(__AVR_ATmega1280__) && !defined(__AVR_ATmega2560__)
+#error please select the proper board for the CrcDuino (Mega or Mega2560)
+#endif // __AVR_ATmega1280__ or __AVR_ATmega2560__
+
 #include "RobotUtils/ModeManager.h"
 
 #endif // _INCLUDE_ROU_ROBOT_UTILS_H_
