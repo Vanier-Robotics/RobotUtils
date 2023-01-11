@@ -6,8 +6,8 @@
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
 
-#ifndef _INCLUDE_ROU_HANDLE_H_
-#define _INCLUDE_ROU_HANDLE_H_
+#ifndef _INCLUDE_ROU_PWM_HANDLE_H_
+#define _INCLUDE_ROU_PWM_HANDLE_H_
 
 #include "Handle.h"
 #include <stdint.h>
@@ -39,4 +39,4 @@ public:
 };
 
 } // namespace rou
-#endif // _INCLUDE_ROU_HANDLE_H_
+#endif // _INCLUDE_ROU_PWM_HANDLE_H_
