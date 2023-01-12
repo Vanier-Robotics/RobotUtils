@@ -18,7 +18,7 @@ protected:
   bool available;
 
 public:
-  Handle() { available = true; }
+  Handle() : available(true) {} // { available = true; }
 
   bool isAvailable() { return available; }
 

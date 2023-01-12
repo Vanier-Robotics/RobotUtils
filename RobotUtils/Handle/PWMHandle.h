@@ -13,7 +13,6 @@
 #include <stdint.h>
 
 namespace rou {
-
 class PWMHandle : public Handle {
 private:
   uint8_t port;
@@ -21,10 +20,10 @@ private:
   bool isReversed;
 
 public:
-  PWMHandle(uint8_t port, bool isOutput, bool isReversed) {
-    this->port = port;
-    this->isOutput = isOutput;
-    this->isReversed = isReversed;
+  PWMHandle(uint8_t _port, bool _isOutput, bool _isReversed) {
+    port = _port;
+    isOutput = _isOutput;
+    isReversed = _isReversed;
   }
 
   uint8_t getport() { return port; }
