@@ -1,7 +1,7 @@
 /**
  * @file PWMHHandle.h
  * @author Jiucheng Zang
- * @brief Handle class
+ * @brief PWM Handle class
  *
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
@@ -15,7 +15,7 @@
 namespace rou {
 
 class PWMHandle : public Handle {
-protected:
+private:
   uint8_t port;
   bool isOutput;
   bool isReversed;
@@ -31,11 +31,11 @@ public:
 
   bool getisOutput() { return isOutput; }
 
-  bool status() { return isReversed; }
+  // bool status() { return isReversed; }
 
-  void use() { this->isReversed = true; }
+  // void use() { isReversed = true; }
 
-  void release() { this->isReversed = false; }
+  // void release() { isReversed = false; }
 };
 
 } // namespace rou

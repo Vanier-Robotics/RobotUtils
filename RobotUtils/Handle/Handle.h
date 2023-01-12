@@ -22,9 +22,9 @@ public:
 
   bool isAvailable() { return available; }
 
-  void use() { this->available = true; }
+  void use() { available = true; }
 
-  void release() { this->available = false; }
+  void release() { available = false; }
 };
 
 } // namespace rou
