@@ -1,16 +1,14 @@
 /**
  * @file ModeManager.h
  * @author Elisa Moscato
- * @brief ??
+ * @brief Allows to switch between different modes
  * 
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
 
 #ifndef _INCLUDE_ROU_MODE_MANAGER_H_
 #define _INCLUDE_ROU_MODE_MANAGER_H_
-#include "ArduinoExtra.h"
-#include "CrcLib.h"
-#include "ArxSmartPtr.h"
+#include "Mode.h"
 
 namespace rou
 {
@@ -19,7 +17,6 @@ namespace rou
         private:
         Mode* m_nextMode = nullptr;
         Mode* m_curentMode = nullptr;
-
 
         public:
         void update(float dt)
@@ -32,10 +29,10 @@ namespace rou
             if(m_nextMode)
             {
                 if(m_curentMode)
-                m_currentMode-> unload();
+                m_currentMode->unload();
 
                 m_currentMode = m_nextMode;
-                m_currentMode-> load();
+                m_currentMode->load();
                 m_nextMode = nullptr;
             }
         }
@@ -46,6 +43,7 @@ namespace rou
         }
 
     }
+
 
 } // rou
 
