@@ -10,31 +10,21 @@
 #define _INCLUDE_ROU_PWM_HANDLE_H_
 
 #include "Handle.h"
+#include <CrcLib.h>
 #include <stdint.h>
 
 namespace rou {
 class PWMHandle : public Handle {
 private:
-  uint8_t port;
-  bool isOutput;
-  bool isReversed;
+  uint8_t m_pin;
 
 public:
-  PWMHandle(uint8_t _port, bool _isOutput, bool _isReversed) {
-    port = _port;
-    isOutput = _isOutput;
-    isReversed = _isReversed;
+  PWMHandle(uint8_t pin, int minPulseWidth, int maxPulseWidth, bool reverse) {
+    m_pin = pin;
+    Crc::CrcLib::InitializePwmOutput(pin, minPulseWidth, maxPulseWidth, reverse)
   }
 
-  uint8_t getport() { return port; }
-
-  bool getisOutput() { return isOutput; }
-
-  // bool status() { return isReversed; }
-
-  // void use() { isReversed = true; }
-
-  // void release() { isReversed = false; }
+  uint8_t getPin() { return m_pin; }
 };
 
 } // namespace rou

@@ -16,18 +16,18 @@
 namespace rou {
 class HandleManager : public Handle {
 private:
-  std::vector<Handle> handles;
+  std::vector<Handle *> m_handles;
 
 public:
   HandleManager() {}
 
-  void release_all() {
-    for (Handle handle : handles) {
-      handle.release();
+  void releaseAll() {
+    for (int i; i < m_handles.size(); i++) {
+      m_handles[i]->release();
     }
   }
 
-  void addHandle(Handle handle) { handles.push_back(handle); }
+  void addHandle(Handle *handle) { m_handles.push_back(handle); }
 };
 } // namespace rou
 

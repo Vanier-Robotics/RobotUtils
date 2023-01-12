@@ -15,16 +15,18 @@ namespace rou {
 
 class Handle {
 protected:
-  bool available;
+  bool m_available = true;
 
 public:
-  Handle() : available(true) {} // { available = true; }
+  bool isAvailable() { return m_available; }
 
-  bool isAvailable() { return available; }
+  bool use() {
+    bool temp_available = (isAvailable()) ? true : false;
+    m_available = false;
+    return temp_available;
+  }
 
-  void use() { available = true; }
-
-  void release() { available = false; }
+  void release() { m_available = true; }
 };
 
 } // namespace rou
