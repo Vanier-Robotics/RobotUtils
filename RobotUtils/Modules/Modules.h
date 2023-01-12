@@ -22,9 +22,9 @@ class Module
    
     void setup()
     {
-        for (uint16_t i = 0; i < handleCount; i++)
+      for (uint16_t i = 0; i < handleCount; i++)
         {
-            m_handles[i]->initialize(); //might not be req
+          m_handles[i]->initialize(); //might not be req
         }
         
     }

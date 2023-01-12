@@ -9,10 +9,8 @@
 #ifndef _INCLUDE_ROU_LED_MODULE_H_
 #define _INCLUDE_ROU_LED_MODULE_H_
 
-#include "ArduinoExtra.h"
-#include "../Handle/Handle.h"
-#include <CrcLib.h>
-#include <cstdint>
+//#include "ArduinoExtra.h"
+//#include "DigitalOutputHandle.h"
 #include "Modules.h"
 
 
@@ -22,39 +20,23 @@ namespace rou
     class LEDModule : public Module
     {
         public:
-        LEDModule (uint8_t lightPin)
+        LEDModule (DigitalOutputHandle& lightHandle)
         {
-            m_lightPin = lightPin;
-        }
-
-        void setup()
-        {
-            CrcLib::SetDigitalPinMode(lightPin, OUTPUT);
+          m_lightHandle = &lightHandle;
         }
 
         void lightStatus(bool isOn)
         //verify if light is on or off
         {
-           if (isOn) 
-           {
-            CrcLib::SetDigitalInput(lightPin,HIGH);
-           }
-            
-           else 
-           {
-            CrcLib::SetDigitalInput(lightPin,LOW);
-           }
-            
-        };
-
-        virtual void update()
-        {
-
+          if (m_lightHandle->use())
+            {
+              CrcLib::SetDigitalInput(lightHandle->getPin(), (isOn ? HIGH : LOW));   
+            }
         }
 
         private:
-        uint8_t m_lightPin;
-    }
+        DigitalOutputHandle* m_lightHandle;
+    };
 } // rou
 
 #endif // _INCLUDE_ROU_LED_MODULE_H_

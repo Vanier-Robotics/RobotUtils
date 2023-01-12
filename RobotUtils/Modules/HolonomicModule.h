@@ -9,16 +9,10 @@
 #ifndef _INCLUDE_ROU_HOLONOMIC_MODULE_H_
 #define _INCLUDE_ROU_HOLONOMIC_MODULE_H_
 
-#include "ArduinoExtra.h"
-#include "../Handle/Handle.h"
-#include <CrcLib.h>
-#include <cstdint>
+// #include "ArduinoExtra.h"
+#include "PWMHandle.h"
 #include "Modules.h"
 
-int8_t forwardChannelH;
-int8_t yawChannelH;
-int8_t strafeChannel;
-//MoveHolonomic
 
 namespace rou
 {
@@ -27,33 +21,31 @@ class HolonomicModule : public Module
 {
     public:
    
-    HolonomicModule (uint8_t frontLeftMotor, uint8_t backLeftMotor, uint8_t frontRightMotor,uint8_t backRightMotor)
+    HolonomicModule (PWMHandle& frontLeftMotor, PWMHandle& backLeftMotor, PWMHandle& frontRightMotor, PWMHandle& backRightMotor)
     {
-        m_frontLeftMotor = frontLeftMotor;
-        m_backLeftMotor = backLeftMotor;
-        m_frontRightMotor = frontRightMotor;
-        m_backRightMotor = backRightMotor;
+      m_frontLeftMotor = &frontLeftMotor;
+      m_backLeftMotor = &backLeftMotor;
+      m_frontRightMotor = &frontRightMotor;
+      m_backRightMotor = &backRightMotor;
     }
 
-    void setup()
-    {                  
-     CrcLib::InitializePwmOutput(frontLeftMotor);
-     CrcLib::InitializePwmOutput(backLeftMotor);
-     CrcLib::InitializePwmOutput(frontRightMotor);
-     CrcLib::InitializePwmOutput(backRightMotor);
-     //pins
-    }
-
-    virtual void update()
+    virtual void move(int8_t forwardChannelH, int8_t yawChannelH, int8_t strafeChannel)
     {
-       CrcLib::MoveArcade(forwardChannelA, yawChannelA, frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
+       if (m_frontLeftMotor->isAvailable() && m_backLeftMotor->isAvailable() && m_frontRightMotor->isAvailable() && m_backRightMotor->isAvailable())
+       {
+          m_frontLeftMotor->use();
+          m_backLeftMotor->use();
+          m_frontRightMotor->use();
+          m_backLeftMotor->use();
+          CrcLib::MoveArcade(forwardChannelA, yawChannelA, frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
+       }
     }
 
     private:
-    uint8_t m_frontLeftMotor;
-    uint8_t m_backLeftMotor;
-    uint8_t m_frontRightMotor;
-    uint8_t m_backRightMotor;
+    PWMHandle* m_frontLeftMotor;
+    PWMHandle* m_backLeftMotor;
+    PWMHandle* m_frontRightMotor;
+    PWMHandle* m_backRightMotor;
 
 };
 
