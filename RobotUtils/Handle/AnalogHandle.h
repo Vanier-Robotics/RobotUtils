@@ -25,39 +25,39 @@ namespace rou
  */
 class AnalogHandle : public Handle 
 {
-  public:
-    /**
-     * @brief Construct a new Analog Handle object
-     * 
-     * @param pin pin be used in this handle 
-     */
-    AnalogHandle(uint8_t pin) 
-    { 
-      m_pin = pin; 
-    }
+public:
+  /**
+   * @brief Construct a new Analog Handle object
+   * 
+   * @param pin pin be used in this handle 
+   */
+  AnalogHandle(uint8_t pin) 
+  { 
+    m_pin = pin; 
+  }
 
-    /**
-     * @brief The value of the AI mentioned as the function’s argument. Value between(0 to 1023)
-     * 
-     * @return int Crc::CrcLib::GetAnalogInput(m_pin)  
-     */
-    int getValue()
-    {
-      return (Crc::CrcLib::GetAnalogInput(m_pin))
-    } 
-    
-    /**
-     * @brief Return the pin be used in this handle 
-     * 
-     * @return uint8_t m_pin 
-     */
-    uint8_t getPin() 
-    {
-      return m_pin;
-    }
+  /**
+   * @brief The value of the AI mentioned as the function’s argument. Value between(0 to 1023)
+   * 
+   * @return int Crc::CrcLib::GetAnalogInput(m_pin)  
+   */
+  int getValue()
+  {
+    return (Crc::CrcLib::GetAnalogInput(m_pin))
+  } 
 
-  private:
-    uint8_t m_pin;
+  /**
+   * @brief Return the pin be used in this handle 
+   * 
+   * @return uint8_t m_pin 
+   */
+  uint8_t getPin() 
+  {
+    return m_pin;
+  }
+  
+private:
+  uint8_t m_pin;
 };
 
 } // namespace rou

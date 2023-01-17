@@ -25,30 +25,30 @@ namespace rou
  */
 class DigitalOutputHandle : public Handle 
 {
-  public:
-    /**
-     * @brief Construct a new Digital Output Handle object
-     * 
-     * @param pin pin be used in this handle 
-     */
-    DigitalOutputHandle(uint8_t pin) 
-    {
-      m_pin = pin;
-      Crc::CrcLib::SetDigitalPinMode(pin, Crc::OUTPUT);
-    }
+public:
+  /**
+   * @brief Construct a new Digital Output Handle object
+   * 
+   * @param pin pin be used in this handle 
+   */
+  DigitalOutputHandle(uint8_t pin) 
+  {
+    m_pin = pin;
+    Crc::CrcLib::SetDigitalPinMode(pin, Crc::OUTPUT);
+  }
 
-    /**
-     * @brief Return the pin be used in this handle 
-     * 
-     * @return uint8_t m_pin
-     */
-    uint8_t getPin() 
-    { 
-      return m_pin; 
-    }
+  /**
+   * @brief Return the pin be used in this handle 
+   * 
+   * @return uint8_t m_pin
+   */
+  uint8_t getPin() 
+  { 
+    return m_pin; 
+  }
 
-  private:
-    uint8_t m_pin;
+private:
+  uint8_t m_pin;
 };
 
 } // namespace rou

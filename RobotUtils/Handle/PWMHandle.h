@@ -37,7 +37,7 @@ class PWMHandle : public Handle
       Crc::CrcLib::InitializePwmOutput(pin, minPulseWidth, maxPulseWidth, reverse)
     }
 
-    /**
+   /**
      * @brief Return the pin be used in this handle 
      * 
      * @return uint8_t m_pin
@@ -46,8 +46,8 @@ class PWMHandle : public Handle
     { 
       return m_pin; 
     }
-
-  private:
+    
+ private:
     uint8_t m_pin;
 };
 
