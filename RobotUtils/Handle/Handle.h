@@ -9,8 +9,6 @@
 #ifndef _INCLUDE_ROU_HANDLE_H_
 #define _INCLUDE_ROU_HANDLE_H_
 
-#include <stdint.h>
-
 namespace rou {
 
 class Handle {

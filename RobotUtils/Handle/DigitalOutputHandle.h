@@ -14,7 +14,6 @@
 
 #include "Handle.h"
 #include <CrcLib.h>
-#include <stdint.h>
 
 namespace rou {
 class DigitalOutputHandle : public Handle {
@@ -24,12 +23,8 @@ private:
 public:
   DigitalOutputHandle(uint8_t pin) {
     m_pin = pin;
-    Crc::CrcLib::SetDigitalPinMode(pin, Crc::INPUT);
+    Crc::CrcLib::SetDigitalPinMode(pin, Crc::OUTPUT);
   }
-
-  //   void setValue(bool value) {
-  //     Crc::CrcLib::SetDigitalOutput(m_pin, (value) ? Crc::HIGH : Crc::LOW);
-  //   }
   uint8_t getPin() { return m_pin; }
 }
 } // namespace rou

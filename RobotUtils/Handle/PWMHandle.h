@@ -11,7 +11,6 @@
 
 #include "Handle.h"
 #include <CrcLib.h>
-#include <stdint.h>
 
 namespace rou {
 class PWMHandle : public Handle {
@@ -23,7 +22,6 @@ public:
     m_pin = pin;
     Crc::CrcLib::InitializePwmOutput(pin, minPulseWidth, maxPulseWidth, reverse)
   }
-
   uint8_t getPin() { return m_pin; }
 };
 

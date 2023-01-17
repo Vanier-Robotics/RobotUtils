@@ -14,7 +14,6 @@
 
 #include "Handle.h"
 #include <CrcLib.h>
-#include <stdint.h>
 
 namespace rou {
 class DigitalInputHandle : public Handle {
@@ -22,7 +21,10 @@ private:
   uint8_t m_pin;
 
 public:
-  DigitalInputHandle(uint8_t pin, bool _isReversed) { m_pin = pin; }
+  DigitalInputHandle(uint8_t pin, bool _isReversed) {
+    m_pin = pin;
+    Crc::CrcLib::SetDigitalPinMode(pin, Crc::INPUT);
+  }
   bool getValue() { return (Crc::CrcLib::GetDigitalInput(pin) == Crc::HIGH); }
   uint8_t getPin() { return m_pin; }
 }

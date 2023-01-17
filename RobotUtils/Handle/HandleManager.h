@@ -10,7 +10,6 @@
 #define _INCLUDE_ROU_HANDLE_MANAGER_H_
 
 #include "Handle.h"
-#include <cstdint>
 #include <vector>
 
 namespace rou {

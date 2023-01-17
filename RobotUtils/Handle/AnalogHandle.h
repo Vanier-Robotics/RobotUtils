@@ -11,7 +11,6 @@
 
 #include "Handle.h"
 #include <CrcLib.h>
-#include <stdint.h>
 
 #ifndef _INCLUDE_ROU_ANALOG_HANDLE_H_
 #define _INCLUDE_ROU_ANALOG_HANDLE_H_
