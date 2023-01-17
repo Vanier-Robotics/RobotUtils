@@ -15,17 +15,42 @@
 #include "Handle.h"
 #include <CrcLib.h>
 
-namespace rou {
-class DigitalOutputHandle : public Handle {
-private:
-  uint8_t m_pin;
+namespace rou 
+{
 
-public:
-  DigitalOutputHandle(uint8_t pin) {
-    m_pin = pin;
-    Crc::CrcLib::SetDigitalPinMode(pin, Crc::OUTPUT);
-  }
-  uint8_t getPin() { return m_pin; }
-}
+/**
+ * @brief Digital Output Handle class
+ * 
+ * @extends Handle class
+ */
+class DigitalOutputHandle : public Handle 
+{
+  public:
+    /**
+     * @brief Construct a new Digital Output Handle object
+     * 
+     * @param pin pin be used in this handle 
+     */
+    DigitalOutputHandle(uint8_t pin) 
+    {
+      m_pin = pin;
+      Crc::CrcLib::SetDigitalPinMode(pin, Crc::OUTPUT);
+    }
+
+    /**
+     * @brief Return the pin be used in this handle 
+     * 
+     * @return uint8_t m_pin
+     */
+    uint8_t getPin() 
+    { 
+      return m_pin; 
+    }
+
+  private:
+    uint8_t m_pin;
+};
+
 } // namespace rou
+
 #endif // _INCLUDE_ROU_DIGITAL_OUTPUT_HANDLE_H_
