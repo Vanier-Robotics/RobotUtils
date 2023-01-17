@@ -21,7 +21,7 @@ private:
   uint8_t m_pin;
 
 public:
-  DigitalInputHandle(uint8_t pin, bool _isReversed) {
+  DigitalInputHandle(uint8_t pin) {
     m_pin = pin;
     Crc::CrcLib::SetDigitalPinMode(pin, Crc::INPUT);
   }
