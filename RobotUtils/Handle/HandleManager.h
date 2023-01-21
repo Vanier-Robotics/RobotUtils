@@ -10,7 +10,7 @@
 #define _INCLUDE_ROU_HANDLE_MANAGER_H_
 
 #include "Handle.h"
-#include <vector>
+#include "ArdurinoExtra.h"
 
 namespace rou 
 {
@@ -52,7 +52,7 @@ public:
   }
 
 private:
-  std::vector<Handle *> m_handles;
+  aex::Vector<Handle *> m_handles;
 };
 
 } // namespace rou
