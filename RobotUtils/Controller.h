@@ -21,40 +21,41 @@ class Controller:
 	// Structure that contains the variables and fuctions for the digital binding
 	struct DigitalBinding
 	{
-		BUTTON buttonID; //variable of type BUTTON (from CRC lib) that stores a specific button
-		aex::Function<void(bool)> callback; //pointer function used to do some action with a digital button
+		BUTTON 						buttonID; //variable of type BUTTON (from CRC lib) that stores a specific button
+		aex::Function<void(bool)>	callback; //pointer function used to do some action with a digital button
 	};
 
 	//Structure that contains the variables and fuctions for the toggle binding
 	struct ToggleBinding
 	{
-		BUTTON buttonID; //variable of type BUTTON (from CRC lib) that stores a specific button
-		aex::Function<void(bool)> callback; //pointer function used to do some action with a toggle action
-		bool isToggled = false; //boolean variable that stores the state of the button (Toggled = true and not toggled = false)
+		BUTTON						buttonID; //variable of type BUTTON (from CRC lib) that stores a specific button
+		aex::Function<void(bool)>	callback; //pointer function used to do some action with a toggle action
+
+		bool isToggled	= false; //boolean variable that stores the state of the button (Toggled = true and not toggled = false)
 		// boolean variable that stores the last value of a button and used to defined the isToggled value
 		//(if lastValue = true, then the last button was pressed and if lastValue = false, then the last button wasn't pressed)
-		bool lastValue = false;
+		bool lastValue	= false;
 	};
 
 	//Structure that contains the variables and fuctions for the analog binding
 	struct AnalogBinding
 	{
-		ANALOG analogID; //variable of type ANALOG (from CRC lib) that stores a specific button
-		aex::Function<void(int8_t)> callback; //pointer function used to do some action with an analog button
+		ANALOG 						analogID; //variable of type ANALOG (from CRC lib) that stores a specific button
+		aex::Function<void(int8_t)>	callback; //pointer function used to do some action with an analog button
 	};
 
 	//Structure that contains the variables and fuctions for the digital sensor binding
 	struct DigitalSensorBinding
 	{
-		uint8_t pin; //variable of type uint8_t that stores the number of the pin on the crcDuino board change type
-		aex::Function<void(bool)> callback;
+		uint8_t						pin; //variable of type uint8_t that stores the number of the pin on the crcDuino board change type
+		aex::Function<void(bool)>	callback;
 	};
 
 	//Structure that contains the variables and fuctions for the analog sensor binding
 	struct AnalogSensorBinding
 	{
-		uint8_t pin; //variable of type uint8_t that stores the number of the pin on the crcDuino board change type
-		aex::Function<void(unsigned int)> callback;
+		uint8_t								pin; //variable of type uint8_t that stores the number of the pin on the crcDuino board change type
+		aex::Function<void(unsigned int)>	callback;
 	};
 
 public:
