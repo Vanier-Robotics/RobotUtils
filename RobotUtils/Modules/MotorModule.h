@@ -1,44 +1,42 @@
 /**
  * @file MotorModule.h
- * @author Diana
+ * @author Diana Riscanu
  * @brief MotorModule class
- * 
+ *
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
 
 #ifndef _INCLUDE_ROU_MOTOR_MODULE_H_
 #define _INCLUDE_ROU_MOTOR_MODULE_H_
 
-//#include "ArduinoExtra.h"
-#include "PWMHandle.h"
-#include "Modules.h"               
+#include "../Handles/PwmHandle.h"
+#include "../Module.h"
 
 namespace rou
 {
 
 class MotorModule : public Module
 {
-    public:
-   
-   MotorModule (PWMHandle& motor)
-    {
-        m_motor = &motor;
-    }
+public:
+	MotorModule(PwmHandle& motorHandle)
+	{
+		m_motorHandle = &motorHandle;
+	}
 
-   void motorStatus(int8_t motorSpeed)
-   {
-     CrcLib::SetPwmOutput(m_motor,motorSpeed);
-       
-   }
+	void motorStatus(int8_t motorSpeed)
+	{
+		CrcLib::SetPwmOutput(m_motorHandle, motorSpeed);
+	}
 
-    void setup()
-    {
-        CrcLib::InitializePwmOutput(motor);
-    }
+	void setup()
+	{
+		CrcLib::InitializePwmOutput(motorHandle);
+	}
 
-    private:
-    PWMHandle* m_motor;
+private:
+	PwmHandle* m_motorHandle;
 };
 
-} //namespace rou
+} // namespace rou
+
 #endif // _INCLUDE_ROU_MOTOR_MODULE_H_
