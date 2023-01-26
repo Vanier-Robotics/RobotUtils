@@ -36,7 +36,7 @@ public:
 	 */
 	bool use()
 	{
-		bool t_wasAvailable = (isAvailable()) ? true : false;
+		bool t_wasAvailable = isAvailable();
 		m_isAvailable = false;
 
 		return t_wasAvailable;

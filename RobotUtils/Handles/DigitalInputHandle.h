@@ -30,7 +30,7 @@ public:
 	DigitalInputHandle(uint8_t pin)
 	{
 		m_pin = pin;
-		Crc::CrcLib::SetDigitalPinMode(pin, Crc::INPUT);
+		Crc::CrcLib::SetDigitalPinMode(pin, INPUT);
 	}
 
 	/**
@@ -40,7 +40,7 @@ public:
 	 */
 	bool getValue()
 	{
-		return (Crc::CrcLib::GetDigitalInput(pin) == Crc::HIGH);
+		return (Crc::CrcLib::GetDigitalInput(m_pin) == HIGH);
 	}
 
 	/**

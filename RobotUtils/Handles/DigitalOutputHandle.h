@@ -31,7 +31,7 @@ public:
 	DigitalOutputHandle(uint8_t pin)
 	{
 		m_pin = pin;
-		Crc::CrcLib::SetDigitalPinMode(pin, Crc::OUTPUT);
+		Crc::CrcLib::SetDigitalPinMode(pin, OUTPUT);
 	}
 
 	/**

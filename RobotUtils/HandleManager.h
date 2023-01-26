@@ -27,9 +27,7 @@ public:
 	 * @brief Construct a new Handle Manager object
 	 *
 	 */
-	HandleManager()
-	{
-	}
+	HandleManager() = default;
 
 	/**
 	 * @brief Release all the Handle in the Handle Manager
