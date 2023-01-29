@@ -12,6 +12,8 @@
 namespace rou
 {
 
+class HandleManager;
+
 /**
  * @brief Handle class
  *
@@ -19,6 +21,8 @@ namespace rou
 class Handle
 {
 public:
+	friend class HandleManager;
+
 	/**
 	 * @brief Check if Handle is available for now
 	 *
@@ -52,6 +56,15 @@ public:
 	}
 
 protected:
+	/**
+	 * @brief Setup the handle (ie. initialize the pin, etc.)
+	 * 
+	 * Some handles do not require any setup, which is why the base defaults to an empty method
+	 */
+	virtual void setup()
+	{
+	}
+
 	bool m_isAvailable = true;
 };
 

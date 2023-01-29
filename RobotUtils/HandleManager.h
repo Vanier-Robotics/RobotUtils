@@ -24,12 +24,6 @@ class HandleManager : public Handle
 {
 public:
 	/**
-	 * @brief Construct a new Handle Manager object
-	 *
-	 */
-	HandleManager() = default;
-
-	/**
 	 * @brief Release all the Handle in the Handle Manager
 	 *
 	 */
@@ -49,6 +43,7 @@ public:
 	void addHandle(Handle* handle)
 	{
 		m_handles.pushBack(handle);
+		handle->setup();
 	}
 
 private:

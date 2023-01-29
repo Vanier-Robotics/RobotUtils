@@ -33,8 +33,10 @@ public:
 	 */
 	PwmHandle(uint8_t pin, int minPulseWidth, int maxPulseWidth, bool isReversed)
 	{
-		m_pin = pin;
-		Crc::CrcLib::InitializePwmOutput(pin, minPulseWidth, maxPulseWidth, isReversed);
+		m_pin			= pin;
+		m_minPulseWidth	= minPulseWidth;
+		m_maxPulseWidth	= maxPulseWidth;
+		m_isReversed	= isReversed;
 	}
 
 	/**
@@ -47,8 +49,21 @@ public:
 		return m_pin;
 	}
 
+protected:
+	/**
+	 * @brief Initialize the Pwm Output
+	 * 
+	 */
+	void setup() override
+	{
+		Crc::CrcLib::InitializePwmOutput(m_pin, m_minPulseWidth, m_maxPulseWidth, m_isReversed);
+	}
+
 private:
-	uint8_t m_pin;
+	uint8_t	m_pin;
+	int		m_minPulseWidth;
+	int		m_maxPulseWidth;
+	bool	m_isReversed;
 };
 
 } // namespace rou

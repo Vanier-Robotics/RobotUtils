@@ -31,7 +31,6 @@ public:
 	DigitalOutputHandle(uint8_t pin)
 	{
 		m_pin = pin;
-		Crc::CrcLib::SetDigitalPinMode(pin, OUTPUT);
 	}
 
 	/**
@@ -42,6 +41,16 @@ public:
 	uint8_t getPin()
 	{
 		return m_pin;
+	}
+
+protected:
+	/**
+	 * @brief Set the pin mode
+	 * 
+	 */
+	void setup() override
+	{
+		Crc::CrcLib::SetDigitalPinMode(m_pin, OUTPUT);
 	}
 
 private:
