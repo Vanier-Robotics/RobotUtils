@@ -31,11 +31,19 @@ public:
 	 * @param maxPulseWidth The maximum pulse width, in microseconds
 	 * @param reverse Whether or not to invert the rotation direction of the servo
 	 */
-	PwmHandle(uint8_t pin, int minPulseWidth, int maxPulseWidth, bool isReversed)
+	PwmHandle(uint8_t pin, int minPulseWidth = 1000, int maxPulseWidth = 2000, bool isReversed = false)
 	{
 		m_pin			= pin;
 		m_minPulseWidth	= minPulseWidth;
 		m_maxPulseWidth	= maxPulseWidth;
+		m_isReversed	= isReversed;
+	}
+
+	PwmHandle(unint8_t pin, bool isReversed)
+	{
+		m_pin			= pin;
+		m_minPulseWidth	= 1000;
+		m_maxPulseWidth	= 2000;
 		m_isReversed	= isReversed;
 	}
 
@@ -52,7 +60,7 @@ public:
 protected:
 	/**
 	 * @brief Initialize the Pwm Output
-	 * 
+	 *
 	 */
 	void setup() override
 	{
