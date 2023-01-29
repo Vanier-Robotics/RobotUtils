@@ -39,6 +39,28 @@ public:
 		m_isReversed	= isReversed;
 	}
 
+	PwmHandle(unint8_t pin, int minPulseWidth, int maxPulseWidth, bool isReversed = false)
+	{
+		m_pin			= pin;
+		m_minPulseWidth	= minPulseWidth;
+		m_maxPulseWidth	= maxPulseWidth;
+		m_isReversed	= isReversed;
+	}
+
+	PwmHandle(unint8_t pin, int minPulseWidth=1000, int maxPulseWidth=2000, bool isReversed)
+	{
+		m_pin = pin;
+		m_isReversed = isReversed;
+	}
+
+
+	PwmHandle(unint8_t pin, int minPulseWidth=1000, int maxPulseWidth=2000, bool isReversed = false)
+	{
+		m_pin = pin;
+	}
+
+	
+
 	/**
 	 * @brief Return the pin be used in this handle
 	 *
