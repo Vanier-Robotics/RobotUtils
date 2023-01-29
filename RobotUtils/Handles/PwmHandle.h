@@ -47,7 +47,6 @@ public:
 		m_isReversed	= isReversed;
 	}
 
-		m_pin = pin;
 	/**
 	 * @brief Return the pin be used in this handle
 	 *
