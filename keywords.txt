@@ -10,6 +10,7 @@ ModeManager KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
+update  KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)
