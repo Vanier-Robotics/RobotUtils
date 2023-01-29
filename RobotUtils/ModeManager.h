@@ -45,7 +45,7 @@ public:
 private:
 	Mode* m_nextMode	= nullptr;
 	Mode* m_currentMode	= nullptr;
-}
+};
 
 } // namespace rou
 

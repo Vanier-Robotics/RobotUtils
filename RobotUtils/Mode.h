@@ -10,6 +10,7 @@
 #define _INCLUDE_ROU_MODE_H_
 
 #include <ArduinoExtra.h>
+#include "Controller.h"
 
 namespace rou
 {
@@ -17,14 +18,14 @@ namespace rou
 class Mode
 {
 public:
-	virtual void update(float dt)	= 0;
+	virtual void update(float dt) = 0;
 
-	virtual void setup(float dt)	= 0;
+	virtual void load()		= 0;
+	virtual void unload()	= 0;
 
 protected:
-	aex::Vector<Module>	m_modules;
-	Controller			m_controller;
-}
+	Controller m_controller;
+};
 
 } // namespace rou
 
