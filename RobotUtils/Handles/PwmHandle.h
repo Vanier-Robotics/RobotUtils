@@ -39,7 +39,7 @@ public:
 		m_isReversed	= isReversed;
 	}
 
-	PwmHandle(unint8_t pin, bool isReversed)
+	PwmHandle(uint8_t pin, bool isReversed)
 	{
 		m_pin			= pin;
 		m_minPulseWidth	= 1000;
