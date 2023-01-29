@@ -15,6 +15,8 @@
 namespace rou
 {
 
+class ModeManager;
+
 class Mode
 {
 public:
@@ -24,7 +26,8 @@ public:
 	virtual void unload()	= 0;
 
 protected:
-	Controller m_controller;
+	Controller			m_controller;
+	static ModeManager&	ModeManager;
 };
 
 } // namespace rou

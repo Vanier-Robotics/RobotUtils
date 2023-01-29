@@ -31,10 +31,10 @@ class Controller
 		Crc::BUTTON					buttonID; //variable of type BUTTON (from CRC lib) that stores a specific button
 		aex::Function<void(bool)>	callback; //pointer function used to do some action with a toggle action
 
-		bool isToggled	= false; //boolean variable that stores the state of the button (Toggled = true and not toggled = false)
+		bool isToggled; //boolean variable that stores the state of the button (Toggled = true and not toggled = false)
 		// boolean variable that stores the last value of a button and used to defined the isToggled value
 		//(if lastValue = true, then the last button was pressed and if lastValue = false, then the last button wasn't pressed)
-		bool lastValue	= false;
+		bool lastValue;
 	};
 
 	//Structure that contains the variables and fuctions for the analog binding
@@ -67,25 +67,25 @@ public:
 	}
 
 	//callback function for toggle bindings
-	void toggleBinding(Crc::BUTTON buttonID, aex::Function<void(bool)> callback)
+	void toggleBind(Crc::BUTTON buttonID, aex::Function<void(bool)> callback)
 	{
-		m_toggleBindings.emplaceBack(buttonID, callback);
+		m_toggleBindings.pushBack({buttonID, callback, false, false});
 	}
 
 	//callback function for analog bindings
-	void analogBinding(Crc::ANALOG analogID, aex::Function<void(int8_t)> callback)
+	void analogBind(Crc::ANALOG analogID, aex::Function<void(int8_t)> callback)
 	{
 		m_analogBindings.pushBack({analogID, callback});
 	}
 
 	//callback function for digital sensor bindings
-	void digitalSensorBinding(uint8_t pin, aex::Function<void(bool)> callback)
+	void digitalSensorBind(uint8_t pin, aex::Function<void(bool)> callback)
 	{
 		m_digitalSensorBindings.pushBack({pin, callback});
 	}
 
 	//callback function for analog sensor binding
-	void analogSensorBinding(uint8_t pin, aex::Function<void(unsigned int)> callback)
+	void analogSensorBind(uint8_t pin, aex::Function<void(unsigned int)> callback)
 	{
 		m_analogSensorBindings.pushBack({pin, callback});
 	}
