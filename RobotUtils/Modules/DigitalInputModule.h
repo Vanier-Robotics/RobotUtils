@@ -10,27 +10,22 @@
 #define _INCLUDE_ROU_DIGITAL_INPUT_MODULE_H_
 
 #include "../Handles/DigitalInputHandle.h"
-#include "../Module.h"
+#include <CrcLib.h>
 
 namespace rou
 {
 
-class DigitalInputModule : public Module
+class DigitalInputModule
 {
 public:
-	DigitalInputModule(DigitalInputHandle& digitalInputHandle)
+	DigitalInputModule(DigitalInputHandle* digitalInputHandle)
 	{
-		m_digitalInputHandle = &digitalInputHandle;
+		m_digitalInputHandle = digitalInputHandle;
 	}
 
-	void setup()
+	bool getStatus()
 	{
-		CrcLib::SetDigitalPinMode(digitalInputHandle, INPUT);
-	}
-
-	bool switchStatus()
-	{
-		return (CrcLib::GetDigitalInput(digitalInputHandle) == HIGH);
+		return (Crc::CrcLib::GetDigitalInput(m_digitalInputHandle->getPin()) == HIGH);
 	}
 
 private:

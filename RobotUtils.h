@@ -15,6 +15,5 @@
 #endif // __AVR_ATmega1280__ or __AVR_ATmega2560__
 
 #include "RobotUtils/ModeManager.h"
-#include "RobotUtils/Modules/Modules.h"
 
 #endif // _INCLUDE_ROU_ROBOT_UTILS_H_

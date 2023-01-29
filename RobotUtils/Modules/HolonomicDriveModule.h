@@ -10,21 +10,21 @@
 #define _INCLUDE_ROU_HOLONOMIC_DRIVE_MODULE_H_
 
 #include "../Handles/PwmHandle.h"
-#include "../Module.h"
+#include <CrcLib.h>
 
 namespace rou
 {
 
-class HolonomicDriveModule : public Module
+class HolonomicDriveModule
 {
 public:
-	HolonomicDriveModule(PwmHandle& frontLeftMotor, PwmHandle& backLeftMotor,
-		PwmHandle& frontRightMotor, PwmHandle& backRightMotor)
+	HolonomicDriveModule(PwmHandle* frontLeftMotor, PwmHandle* backLeftMotor,
+		PwmHandle* frontRightMotor, PwmHandle* backRightMotor)
 	{
-		m_frontLeftMotor	= &frontLeftMotor;
-		m_backLeftMotor		= &backLeftMotor;
-		m_frontRightMotor	= &frontRightMotor;
-		m_backRightMotor	= &backRightMotor;
+		m_frontLeftMotor	= frontLeftMotor;
+		m_backLeftMotor		= backLeftMotor;
+		m_frontRightMotor	= frontRightMotor;
+		m_backRightMotor	= backRightMotor;
 	}
 
 	virtual void move(int8_t forwardChannel, int8_t yawChannel, int8_t strafeChannel)
@@ -37,8 +37,9 @@ public:
 			m_frontRightMotor->use();
 			m_backLeftMotor->use();
 
-			CrcLib::MoveArcade(forwardChannel, yawChannel,
-				frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
+			Crc::CrcLib::MoveHolonomic(forwardChannel, yawChannel, strafeChannel,
+				m_frontLeftMotor->getPin(), m_backLeftMotor->getPin(),
+				m_frontRightMotor->getPin(), m_backRightMotor->getPin());
 		}
 	}
 

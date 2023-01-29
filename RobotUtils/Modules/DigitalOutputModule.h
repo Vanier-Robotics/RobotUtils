@@ -10,24 +10,24 @@
 #define _INCLUDE_ROU_DIGITAL_OUTPUT_MODULE_H_
 
 #include "../Handles/DigitalOutputHandle.h"
-#include "../Module.h"
+#include <CrcLib.h>
 
 namespace rou
 {
 
-class DigitalOutputModule : public Module
+class DigitalOutputModule
 {
 public:
-	DigitalOutputModule(DigitalOutputHandle& digitalOuptutHandle)
+	DigitalOutputModule(DigitalOutputHandle* digitalOuptutHandle)
 	{
-		m_digitalOutputHandle = &digitalOuptutHandle;
+		m_digitalOutputHandle = digitalOuptutHandle;
 	}
 
 	void setStatus(bool isHigh)
 	{
 		if (m_digitalOutputHandle->use())
 		{
-			CrcLib::SetDigitalInput(digitalOuptutHandle->getPin(), (isHigh ? HIGH : LOW));
+			Crc::CrcLib::SetDigitalOutput(m_digitalOutputHandle->getPin(), (isHigh ? HIGH : LOW));
 		}
 	}
 

@@ -10,27 +10,22 @@
 #define _INCLUDE_ROU_MOTOR_MODULE_H_
 
 #include "../Handles/PwmHandle.h"
-#include "../Module.h"
+#include <CrcLib.h>
 
 namespace rou
 {
 
-class MotorModule : public Module
+class MotorModule
 {
 public:
-	MotorModule(PwmHandle& motorHandle)
+	MotorModule(PwmHandle* motorHandle)
 	{
-		m_motorHandle = &motorHandle;
+		m_motorHandle = motorHandle;
 	}
 
-	void motorStatus(int8_t motorSpeed)
+	void setSpeed(int8_t motorSpeed)
 	{
-		CrcLib::SetPwmOutput(m_motorHandle, motorSpeed);
-	}
-
-	void setup()
-	{
-		CrcLib::InitializePwmOutput(motorHandle);
+		Crc::CrcLib::SetPwmOutput(m_motorHandle->getPin(), motorSpeed);
 	}
 
 private:
