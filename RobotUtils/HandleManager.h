@@ -20,7 +20,7 @@ namespace rou
  *
  * @extends Handle class
  */
-class HandleManager : public Handle
+class HandleManager
 {
 public:
 	/**
@@ -29,7 +29,7 @@ public:
 	 */
 	void releaseAll()
 	{
-		for (int i; i < m_handles.getSize(); i++)
+		for (int i = 0; i < m_handles.getSize(); i++)
 		{
 			m_handles[i]->release();
 		}
