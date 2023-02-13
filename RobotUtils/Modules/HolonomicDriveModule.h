@@ -37,7 +37,7 @@ public:
 			m_frontRightMotor->use();
 			m_backLeftMotor->use();
 
-			Crc::CrcLib::MoveHolonomic(forwardChannel, yawChannel, strafeChannel,
+			Crc::CrcLib::MoveHolonomic(forwardChannel, strafeChannel, yawChannel,
 				m_frontLeftMotor->getPin(), m_backLeftMotor->getPin(),
 				m_frontRightMotor->getPin(), m_backRightMotor->getPin());
 		}
