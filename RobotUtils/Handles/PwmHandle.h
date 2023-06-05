@@ -1,11 +1,10 @@
 /**
  * @file PwmHandle.h
  * @author Jiucheng Zang
- * @brief Pwm Handle class
+ * @brief Handle for managing PWM-controlled actuators
  *
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
-
 #ifndef _INCLUDE_ROU_PWM_HANDLE_H_
 #define _INCLUDE_ROU_PWM_HANDLE_H_
 
@@ -16,20 +15,20 @@ namespace rou
 {
 
 /**
- * @brief Pwm Handle class
+ * @brief Handle for managing PWM-controlled actuators
  *
- * @extends Handle class
+ * @extends Handle
  */
 class PwmHandle : public Handle
 {
 public:
 	/**
-	 * @brief Construct a new PwmHandle object
+	 * @brief Create a new PwmHandle
 	 *
-	 * @param pin pin be used in this handle
-	 * @param minPulseWidth The minimum pulse width, in microseconds
-	 * @param maxPulseWidth The maximum pulse width, in microseconds
-	 * @param reverse Whether or not to invert the rotation direction of the servo
+	 * @param pin CrcLib pin to which the PWM connector is physically wired
+	 * @param minPulseWidth the minimum pulse width, in microseconds
+	 * @param maxPulseWidth the maximum pulse width, in microseconds
+	 * @param reverse whether or not to invert the rotation direction of the servo
 	 */
 	PwmHandle(uint8_t pin, int minPulseWidth = 1000, int maxPulseWidth = 2000, bool isReversed = false)
 	{
@@ -39,6 +38,14 @@ public:
 		m_isReversed	= isReversed;
 	}
 
+	/**
+	 * @brief Create a new PwmHandle
+	 *
+	 * @param pin CrcLib pin to which the PWM connector is physically wired
+	 * @param reverse whether or not to invert the rotation direction of the servo
+	 *
+	 * Defaults to a pulse width ranging from 1000 to 2000 ms
+	 */
 	PwmHandle(uint8_t pin, bool isReversed)
 	{
 		m_pin			= pin;
@@ -48,9 +55,9 @@ public:
 	}
 
 	/**
-	 * @brief Return the pin be used in this handle
+	 * @brief Get the CrcLib pin to which this object is associated
 	 *
-	 * @return uint8_t m_pin
+	 * @return uint8_t the CrcLib pin number
 	 */
 	uint8_t getPin()
 	{
@@ -59,7 +66,7 @@ public:
 
 protected:
 	/**
-	 * @brief Initialize the Pwm Output
+	 * @brief Set the PWM pin at initialization
 	 *
 	 */
 	void setup() override
@@ -68,10 +75,10 @@ protected:
 	}
 
 private:
-	uint8_t	m_pin;
-	int		m_minPulseWidth;
-	int		m_maxPulseWidth;
-	bool	m_isReversed;
+	uint8_t	m_pin;           ///< CrcLib pin to which this object is associated
+	int		m_minPulseWidth; ///< the minimum PWM pulse width for the connected actuator
+	int		m_maxPulseWidth; ///< the maximum PWM pulse width for the connected actuator
+	bool	m_isReversed;    ///< whether or not the signal should be reversed
 };
 
 } // namespace rou

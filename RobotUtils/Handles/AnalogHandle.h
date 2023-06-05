@@ -1,11 +1,10 @@
 /**
  * @file AnalogHandle.h
  * @author Jiucheng Zang
- * @brief Analog Handle
+ * @brief Handle for managing analog sensors
  *
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
-
 #ifndef _INCLUDE_ROU_ANALOG_HANDLE_H_
 #define _INCLUDE_ROU_ANALOG_HANDLE_H_
 
@@ -16,17 +15,17 @@ namespace rou
 {
 
 /**
- * @brief Analog Handle class
+ * @brief Handle for managing analog sensors
  *
- * @extends Handle class
+ * @extends Handle
  */
 class AnalogHandle : public Handle
 {
 public:
 	/**
-	 * @brief Construct a new Analog Handle object
+	 * @brief Create a new AnalogHandle
 	 *
-	 * @param pin pin be used in this handle
+	 * @param pin the CrcLib pin number to which the sensor is physically connected
 	 */
 	AnalogHandle(uint8_t pin)
 	{
@@ -34,9 +33,9 @@ public:
 	}
 
 	/**
-	 * @brief The value of the AI mentioned as the function’s argument. Value between(0 to 1023)
+	 * @brief Get the value of the input
 	 *
-	 * @return int
+	 * @return int value in the range [0, 1023] where 0 means 0V are applied on the pin and 1023 means 7.5V are applied
 	 */
 	int getValue()
 	{
@@ -44,9 +43,9 @@ public:
 	}
 
 	/**
-	 * @brief Return the pin be used in this handle
+	 * @brief Get the CrcLib pin to which this object is associated
 	 *
-	 * @return uint8_t m_pin
+	 * @return uint8_t the CrcLib pin number
 	 */
 	uint8_t getPin()
 	{
@@ -54,7 +53,7 @@ public:
 	}
 
 private:
-	uint8_t m_pin;
+	uint8_t m_pin; ///< CrcLib pin to which this object is associated
 };
 
 } // namespace rou

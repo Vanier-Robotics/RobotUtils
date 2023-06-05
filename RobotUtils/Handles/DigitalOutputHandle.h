@@ -1,11 +1,10 @@
 /**
  * @file DigitalOutputHandle.h
  * @author Jiucheng Zang
- * @brief Digital Output Handle
+ * @brief Handle for managing digital actuators
  *
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
-
 #ifndef _INCLUDE_ROU_DIGITAL_OUTPUT_HANDLE_H_
 #define _INCLUDE_ROU_DIGITAL_OUTPUT_HANDLE_H_
 
@@ -16,17 +15,17 @@ namespace rou
 {
 
 /**
- * @brief Digital Output Handle class
+ * @brief Handle for managing digital actuators
  *
- * @extends Handle class
+ * @extends Handle
  */
 class DigitalOutputHandle : public Handle
 {
 public:
 	/**
-	 * @brief Construct a new Digital Output Handle object
+	 * @brief Create a new DigitalOutputHandle
 	 *
-	 * @param pin pin be used in this handle
+	 * @param pin the CrcLib pin to which the actuator is physically connected
 	 */
 	DigitalOutputHandle(uint8_t pin)
 	{
@@ -34,9 +33,9 @@ public:
 	}
 
 	/**
-	 * @brief Return the pin be used in this handle
+	 * @brief Get the CrcLib pin to which this object is associated
 	 *
-	 * @return uint8_t m_pin
+	 * @return uint8_t the CrcLib pin number
 	 */
 	uint8_t getPin()
 	{
@@ -45,8 +44,8 @@ public:
 
 protected:
 	/**
-	 * @brief Set the pin mode
-	 * 
+	 * @brief Set the pin mode to output at initialization
+	 *
 	 */
 	void setup() override
 	{
@@ -54,7 +53,7 @@ protected:
 	}
 
 private:
-	uint8_t m_pin;
+	uint8_t m_pin; ///< CrcLib pin to which this object is associated
 };
 
 } // namespace rou

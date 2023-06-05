@@ -1,11 +1,10 @@
 /**
  * @file DigitalInputModule.h
  * @author Diana Riscanu
- * @brief DigitalInputModule class
+ * @brief Module to control an individual digital sensor
  *
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
-
 #ifndef _INCLUDE_ROU_DIGITAL_INPUT_MODULE_H_
 #define _INCLUDE_ROU_DIGITAL_INPUT_MODULE_H_
 
@@ -15,21 +14,36 @@
 namespace rou
 {
 
+/**
+ * @brief Module to control an individual digital sensor
+ *
+ */
 class DigitalInputModule
 {
 public:
+	/**
+	 * @brief Create a new DigitalInputModule
+	 *
+	 * @param digitalInputHandle handle associated to the sensor
+	 */
 	DigitalInputModule(DigitalInputHandle* digitalInputHandle)
 	{
 		m_digitalInputHandle = digitalInputHandle;
 	}
 
+	/**
+	 * @brief Get the status of the sensor
+	 *
+	 * @return true the sensor is in HIGH mode
+	 * @return false the sensor is in LOW mode
+	 */
 	bool getStatus()
 	{
 		return (Crc::CrcLib::GetDigitalInput(m_digitalInputHandle->getPin()) == HIGH);
 	}
 
 private:
-	DigitalInputHandle* m_digitalInputHandle;
+	DigitalInputHandle* m_digitalInputHandle; ///< handle associated to the sensor
 };
 
 } // namespace rou

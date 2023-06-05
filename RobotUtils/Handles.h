@@ -5,7 +5,6 @@
  *
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
-
 #ifndef _INCLUDE_ROU_HANDLES_H_
 #define _INCLUDE_ROU_HANDLES_H_
 

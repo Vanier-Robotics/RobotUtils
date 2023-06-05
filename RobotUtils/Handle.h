@@ -1,11 +1,10 @@
 /**
  * @file Handle.h
  * @author Jiucheng Zang
- * @brief Handle class
+ * @brief Base Handle class
  *
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
-
 #ifndef _INCLUDE_ROU_HANDLE_H_
 #define _INCLUDE_ROU_HANDLE_H_
 
@@ -15,7 +14,7 @@ namespace rou
 class HandleManager;
 
 /**
- * @brief Handle class
+ * @brief Base Handle class
  *
  */
 class Handle
@@ -24,9 +23,10 @@ public:
 	friend class HandleManager;
 
 	/**
-	 * @brief Check if Handle is available for now
+	 * @brief Check if Handle is currently available
 	 *
-	 * @return bool m_available value if available
+	 * @return true the handle is available
+	 * @return false the handle has already been used
 	 */
 	bool isAvailable()
 	{
@@ -34,9 +34,10 @@ public:
 	}
 
 	/**
-	 * @brief Check if this handle be used. If not add it up and return true, else return false do nothing.
+	 * @brief Check if this handle be used. If not, switch it to unavailable return true, else return false do nothing.
 	 *
-	 * @return bool temp_available value if use success
+	 * @return true the handle can be used
+	 * @return false the handle has been previously used and is no longer avaiable
 	 */
 	bool use()
 	{
@@ -47,7 +48,7 @@ public:
 	}
 
 	/**
-	 * @brief Release this handle
+	 * @brief Release this handle, making it available again
 	 *
 	 */
 	void release()
@@ -58,14 +59,14 @@ public:
 protected:
 	/**
 	 * @brief Setup the handle (ie. initialize the pin, etc.)
-	 * 
+	 *
 	 * Some handles do not require any setup, which is why the base defaults to an empty method
 	 */
 	virtual void setup()
 	{
 	}
 
-	bool m_isAvailable = true;
+	bool m_isAvailable = true; ///< stores whether the handle can be used or has already been used
 };
 
 } // namespace rou

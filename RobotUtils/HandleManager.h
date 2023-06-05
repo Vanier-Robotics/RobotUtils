@@ -1,11 +1,10 @@
 /**
  * @file HandleManager.h
  * @author Jiucheng Zang
- * @brief Handle Manager class
+ * @brief Manages the use of all handles
  *
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
-
 #ifndef _INCLUDE_ROU_HANDLE_MANAGER_H_
 #define _INCLUDE_ROU_HANDLE_MANAGER_H_
 
@@ -16,15 +15,14 @@ namespace rou
 {
 
 /**
- * @brief Handle Manager class
+ * @brief HandleManager class, which controls the use of all individual handles
  *
- * @extends Handle class
  */
 class HandleManager
 {
 public:
 	/**
-	 * @brief Release all the Handle in the Handle Manager
+	 * @brief Release all the handles stored in the handle manager
 	 *
 	 */
 	void releaseAll()
@@ -38,7 +36,9 @@ public:
 	/**
 	 * @brief Add different Handle into Handle Manager Class
 	 *
-	 * @param handle Different types of handle
+	 * @param handle a pointer to any handle
+	 *
+	 * All handles must be added to the handle manager
 	 */
 	void addHandle(Handle* handle)
 	{
@@ -47,7 +47,7 @@ public:
 	}
 
 private:
-	aex::Vector<Handle*> m_handles;
+	aex::Vector<Handle*> m_handles; ///< Vector of ALL handles used by the robot
 };
 
 } // namespace rou
