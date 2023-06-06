@@ -40,7 +40,10 @@ public:
 	 */
 	void setSpeed(int8_t motorSpeed)
 	{
-		Crc::CrcLib::SetPwmOutput(m_motorHandle->getPin(), motorSpeed);
+		if (m_motorHandle->use())
+		{
+			Crc::CrcLib::SetPwmOutput(m_motorHandle->getPin(), motorSpeed);
+		}
 	}
 
 private:

@@ -39,7 +39,7 @@ public:
 	 */
 	bool getStatus()
 	{
-		return (Crc::CrcLib::GetDigitalInput(m_digitalInputHandle->getPin()) == HIGH);
+		return m_digitalInputHandle->getValue();
 	}
 
 private:

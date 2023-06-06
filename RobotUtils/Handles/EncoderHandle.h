@@ -34,7 +34,7 @@ public:
 	 * For best performance, both pins should have interrupt capabilities. For good performance, at least one of them should.
      */
     EncoderHandle(int8_t pinA, int8_t pinB)
-	: m_encoder(pinA, pinB)
+	: m_encoder(pinA, pinB) // unfortunatly, this cannot go in the setup() method
     {
         m_pinA = pinA;
         m_pinB = pinB;

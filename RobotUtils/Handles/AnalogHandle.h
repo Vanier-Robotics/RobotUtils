@@ -37,7 +37,7 @@ public:
 	 *
 	 * @return int value in the range [0, 1023] where 0 means 0V are applied on the pin and 1023 means 7.5V are applied
 	 */
-	int getValue()
+	unsigned int getValue()
 	{
 		return Crc::CrcLib::GetAnalogInput(m_pin);
 	}
