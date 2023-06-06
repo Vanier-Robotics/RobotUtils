@@ -45,7 +45,7 @@ public:
      *
      * @return int32_t the value read directly from the encoder object
      */
-    int32_t getPosition()
+    int32_t getValue()
 	{
 		m_encoder.read();
     }

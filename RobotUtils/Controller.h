@@ -5,6 +5,8 @@
  *
  * @copyright Copyright (c) 2023 Vanier Robotics (MIT License)
  */
+#include "Handles/AnalogHandle.h"
+#include "Handles/DigitalInputHandle.h"
 #include <ArduinoExtra.h>
 #include <CrcLib.h>
 
@@ -21,112 +23,80 @@ namespace rou
 class Controller
 {
 	/**
-	 * @brief Structure that contains the variables and function for a digital binding
+	 * @brief Structure that contains the variables and function for a button binding
 	 *
+	 * The boolean parameter of the callback function determines whether the button
+	 * was pressed (true) or released (false)
 	 */
-	struct DigitalBinding
+	struct ButtonBinding
 	{
 		Crc::BUTTON 				buttonID; ///< variable of type BUTTON (from CrcLib) that stores a specific button
 		aex::Function<void(bool)>	callback; ///< pointer to the function called when the binding changes state
+
+		bool lastValue; ///< keeps track of the previous state of the button
 	};
 
 	/**
 	 * @brief Structure that contains the variables and function for a toggle binding
 	 *
+	 * The boolean parameter of the callback function determines whether the button
+	 * has switched to being toggled on (true) or off (false)
 	 */
-	struct ToggleBinding
+	struct ToggleButtonBinding
 	{
-		Crc::BUTTON					buttonID; ///< variable of type BUTTON (from CrcLib) that stores a specific button
-		aex::Function<void(bool)>	callback; ///< pointer to the function called when the binding changes state
+		Crc::BUTTON	              buttonID; ///< variable of type BUTTON (from CrcLib) that stores a specific button
+		aex::Function<void(bool)> callback; ///< pointer to the function called when the binding changes state
 
-		bool isToggled; ///< stores the state of the button
-		bool lastValue; ///< boolean variable that keeps track of the previous value of a button
-	};
-
-	/**
-	 * @brief Structure that contains the variables and function for an analog binding
-	 *
-	 */
-	struct AnalogBinding
-	{
-		Crc::ANALOG 				analogID; ///< variable of type ANALOG (from CrcLib) that stores a specific button
-		aex::Function<void(int8_t)>	callback; ///< pointer to the function called when the binding changes state
+		bool isToggled; ///< stores the state of the binding
+		bool lastValue; ///< keeps track of the previous state of the button
 	};
 
 	/**
 	 * @brief Structure that contains the variables and functions for a digital sensor binding
 	 *
+	 * The boolean parameter of the callback function determines whether the sensor
+	 * returns a HIGH (true) or a LOW (false)
 	 */
 	struct DigitalSensorBinding
 	{
-		uint8_t						pin;      ///< the pin number from Crclib
-		aex::Function<void(bool)>	callback; ///< pointer to the function called when the binding changes state
-	};
+		DigitalInputHandle&       handle;   ///< reference to the handle associated with the sensor
+		aex::Function<void(bool)> callback; ///< pointer to the function called when the binding changes state
 
-	/**
-	 * @brief Structure that contains the variables and functions for an analog sensor binding
-	 *
-	 */
-	struct AnalogSensorBinding
-	{
-		uint8_t								pin;      ///< the pin number from Crclib
-		aex::Function<void(unsigned int)>	callback; ///< pointer to the function called when the binding changes state
+		bool lastValue; ///< keeps track of the previous state of the sensor
 	};
 
 public:
 	/**
-	 * @brief Setup a callback function for a digital binding
+	 * @brief Setup a callback function for a button binding
 	 *
-	 * @param buttonID The BUTTON to which the binding is assigned
-	 * @param callback Pointer to the function that will be called when this binding is updated
+	 * @param buttonID CrcLib BUTTON to which the binding is assigned
+	 * @param callback pointer to the function that will be called when this binding is updated
 	 */
-	void digitalBind(Crc::BUTTON buttonID, aex::Function<void(bool)> callback)
+	void bindButton(Crc::BUTTON buttonID, aex::Function<void(bool)> callback)
 	{
-		m_digitalBindings.pushBack({buttonID, callback});
+		m_buttonBindings.pushBack({buttonID, callback, false});
 	}
 
 	/**
 	 * @brief Setup a callback function for a toggle binding
 	 *
-	 * @param buttonID The BUTTON to which the binding is assigned
-	 * @param callback Pointer to the function that will be called when this binding is updated
+	 * @param buttonID CrcLib BUTTON to which the binding is assigned
+	 * @param callback pointer to the function that will be called when this binding is updated
 	 */
-	void toggleBind(Crc::BUTTON buttonID, aex::Function<void(bool)> callback)
+	void bindToggleButton(Crc::BUTTON buttonID, aex::Function<void(bool)> callback)
 	{
-		m_toggleBindings.pushBack({buttonID, callback, false, false});
-	}
-
-	/**
-	 * @brief Setup a callback function for an analog binding
-	 *
-	 * @param analogID The ANALOG input to which the binding is assigned
-	 * @param callback Pointer to the function that will be called when this binding is updated
-	 */
-	void analogBind(Crc::ANALOG analogID, aex::Function<void(int8_t)> callback)
-	{
-		m_analogBindings.pushBack({analogID, callback});
+		m_toggleButtonBindings.pushBack({buttonID, callback, false, false});
 	}
 
 	/**
 	 * @brief Setup a callback function for a digital sensor binding
 	 *
-	 * @param pin The CrcLib pin number to which the sensor is connected
-	 * @param callback Pointer to the function that will be called when this binding is updated
+	 * @param handle handle associated to the digital sensor
+	 * @param callback pointer to the function that will be called when this binding is updated
 	 */
-	void digitalSensorBind(uint8_t pin, aex::Function<void(bool)> callback)
+	void bindDigitalSensor(DigitalInputHandle& handle, aex::Function<void(bool)> callback)
 	{
-		m_digitalSensorBindings.pushBack({pin, callback});
-	}
-
-	/**
-	 * @brief Setup a callback function for an analog sensor binding
-	 *
-	 * @param pin The CrcLib pin number to which the sensor is connected
-	 * @param callback Pointer to the function that will be called when this binding is updated
-	 */
-	void analogSensorBind(uint8_t pin, aex::Function<void(unsigned int)> callback)
-	{
-		m_analogSensorBindings.pushBack({pin, callback});
+		m_digitalSensorBindings.pushBack({handle, callback, false});
 	}
 
 	/**
@@ -135,27 +105,25 @@ public:
 	 */
 	void update()
 	{
-		// For each frame, verify which button are pressed and call the corresponding methods
+		// During each update, check which button are pressed and update necessary callbacks
 
-		// Digital Bindings verification
-		for (int i = 0; i < m_digitalBindings.getSize(); i++)
+		// Button bindings
+		for (int i = 0; i < m_buttonBindings.getSize(); i++)
 		{
-			m_digitalBindings[i].callback(
-				Crc::CrcLib::ReadDigitalChannel(m_digitalBindings[i].buttonID));
+			bool status = Crc::CrcLib::ReadDigitalChannel(m_buttonBindings[i].buttonID);
+			if (status != m_buttonBindings[i].lastValue)
+			{
+				m_buttonBindings[i].callback(status);
+			}
+
+			m_buttonBindings[i].lastValue = status;
 		}
 
-		// Analog Bindings verification
-		for (int i = 0; i < m_analogBindings.getSize(); i++)
-		{
-			m_analogBindings[i].callback(
-				Crc::CrcLib::ReadAnalogChannel(m_analogBindings[i].analogID));
-		}
-
-		// Toggle Bindings verification
+		// Toggle button bindings
 		for (int i = 0; i < m_toggleBindings.getSize(); i++)
 		{
 			bool status = Crc::CrcLib::ReadDigitalChannel(m_toggleBindings[i].buttonID);
-			if (m_toggleBindings[i].lastValue != status && status)
+			if (status && !m_toggleBindings[i].lastValue) // the button was just pressed
 			{
 				m_toggleBindings[i].isToggled != m_toggleBindings[i].isToggled;
 				m_toggleBindings[i].callback(m_toggleBindings[i].isToggled);
@@ -167,24 +135,87 @@ public:
 		// Digital Sensor Bindings verification
 		for (int i = 0; i < m_digitalSensorBindings.getSize(); i++)
 		{
-			m_digitalSensorBindings[i].callback(
-				(Crc::CrcLib::GetDigitalInput(m_digitalSensorBindings[i].pin) == HIGH));
-		}
+			bool status = m_digitalSensorBindings[i].handle.getValue();
+			if (status != m_buttonBindings[i].lastValue)
+			{
+				m_digitalSensorBindings[i].callback(status);
+			}
 
-		// Analog Sensor Bindings verification
-		for (int i = 0; i < m_analogSensorBindings.getSize(); i++)
-		{
-			m_analogSensorBindings[i].callback(
-				Crc::CrcLib::GetAnalogInput(m_analogSensorBindings[i].pin));
+			m_digitalSensorBindings[i].lastValue = status;
 		}
 	}
 
+	/**
+	 * @brief Get whether a button is pressed or not on the controller
+	 *
+	 * @param buttonID CrcLib button that is being checked
+	 * @return true the button is pressed
+	 * @return false the button is not pressed
+	 *
+	 * This function is here for consistency, but the original Crc method can be used instead.
+	 */
+	inline bool getButtonInput(Crc::BUTTON buttonID)
+	{
+		return Crc::CrcLib::ReadDigitalChannel(buttonID);
+	}
+
+	/**
+	 * @brief Get the state of an analog input on the controller (i.e. joystick or trigger)
+	 *
+	 * @param analogID CrcLib ANALOG channel for the desired input
+	 * @return int8_t the value of the input (depends on which one it is)
+	 *
+	 * This function is here for consistency, but the original Crc method can be used instead.
+	 */
+	inline int8_t getAnalogInput(Crc::ANALOG analogID)
+	{
+		return Crc::CrcLib::ReadAnalogChannel(analogID);
+	}
+
+	/**
+	 * @brief Get whether a digital sensor is in HIGH or LOW state
+	 *
+	 * @param handle reference to the digital sensor's handle
+	 * @return true the sensor is in a HIGH state
+	 * @return false the sensor is in a LOW state
+	 *
+	 * This function is here for consistency, but the value can be obtained directly from the handle instead.
+	 */
+	inline bool getDigitalSensorInput(const DigitalInputHandle& handle)
+	{
+		return handle.getValue();
+	}
+
+	/**
+	 * @brief Get the state of an analog sensor
+	 *
+	 * @param handle reference to the analog sensor's handle
+	 * @return unsigned int value representing the voltage read at that pin (0 is 0 volts and 1023 is 7.5 volts)
+	 *
+	 * This function is here for consistency, but the value can be obtained directly from the handle instead.
+	 */
+	inline unsigned int getAnalogSensorInput(const AnalogHandle& handle)
+	{
+		return handle.getValue();
+	}
+
+	/**
+	 * @brief Get the position of an encoder
+	 *
+	 * @param handle reference to the encoder's handle
+	 * @return int32_t position of the encoder
+	 *
+	 * This function is here for consistency, but the value can be obtained directly from the handle instead.
+	 */
+	inline int32_t getEncoderInput(const EncoderHandle& handle)
+	{
+		return handle.getValue();
+	}
+
 private:
-	aex::Vector<DigitalBinding>			m_digitalBindings;       ///< Vector of DigitalBinding's which were created
-	aex::Vector<ToggleBinding>			m_toggleBindings;        ///< Vector of ToggleBinding's which were created
-	aex::Vector<AnalogBinding>			m_analogBindings;        ///< Vector of AnalogBinding's which were created
-	aex::Vector<DigitalSensorBinding>	m_digitalSensorBindings; ///< Vector of DigitalSensorBinding's which were created
-	aex::Vector<AnalogSensorBinding>	m_analogSensorBindings;  ///< Vector of AnalogSensorBinding's which were created
+	aex::Vector<ButtonBinding>        m_buttonBindings;        ///< Vector containing all the button bindings for this Controller
+	aex::Vector<ToggleButtonBinding>  m_toggleButtonBindings;  ///< Vector containing all the toggle button bindings for this Controller
+	aex::Vector<DigitalSensorBinding> m_digitalSensorBindings; ///< Vector containing all the digital sensor bindings for this Controller
 };
 
 } // rou
