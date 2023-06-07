@@ -45,7 +45,7 @@ public:
      *
      * @return int32_t the value read directly from the encoder object
      */
-    int32_t getValue()
+    int32_t getValue() const
 	{
 		m_encoder.read();
     }

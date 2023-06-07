@@ -38,7 +38,7 @@ public:
 	 * @return true the sensor is in HIGH mode
 	 * @return false the sensor is in LOW mode
 	 */
-	bool getValue()
+	bool getValue() const
 	{
 		return (Crc::CrcLib::GetDigitalInput(m_pin) == HIGH);
 	}

@@ -7,6 +7,7 @@
  */
 #include "Handles/AnalogHandle.h"
 #include "Handles/DigitalInputHandle.h"
+#include "Handles/EncoderHandle.h"
 #include <ArduinoExtra.h>
 #include <CrcLib.h>
 
@@ -120,16 +121,16 @@ public:
 		}
 
 		// Toggle button bindings
-		for (int i = 0; i < m_toggleBindings.getSize(); i++)
+		for (int i = 0; i < m_toggleButtonBindings.getSize(); i++)
 		{
-			bool status = Crc::CrcLib::ReadDigitalChannel(m_toggleBindings[i].buttonID);
-			if (status && !m_toggleBindings[i].lastValue) // the button was just pressed
+			bool status = Crc::CrcLib::ReadDigitalChannel(m_toggleButtonBindings[i].buttonID);
+			if (status && !m_toggleButtonBindings[i].lastValue) // the button was just pressed
 			{
-				m_toggleBindings[i].isToggled != m_toggleBindings[i].isToggled;
-				m_toggleBindings[i].callback(m_toggleBindings[i].isToggled);
+				m_toggleButtonBindings[i].isToggled != m_toggleButtonBindings[i].isToggled;
+				m_toggleButtonBindings[i].callback(m_toggleButtonBindings[i].isToggled);
 			}
 
-			m_toggleBindings[i].lastValue = status;
+			m_toggleButtonBindings[i].lastValue = status;
 		}
 
 		// Digital Sensor Bindings verification
