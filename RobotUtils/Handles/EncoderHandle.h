@@ -47,7 +47,7 @@ public:
      */
     int32_t getValue() const
 	{
-		m_encoder.read();
+		return m_encoder.read();
     }
 
     /**

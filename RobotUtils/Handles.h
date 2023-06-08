@@ -12,6 +12,6 @@
 #include "Handles/DigitalInputHandle.h"
 #include "Handles/DigitalOutputHandle.h"
 #include "Handles/PwmHandle.h"
-#include "Handles/EncoderHandle.h""
+#include "Handles/EncoderHandle.h"
 
 #endif // _INCLUDE_ROU_HANDLES_H_
