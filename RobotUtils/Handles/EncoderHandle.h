@@ -47,7 +47,7 @@ public:
      */
     int32_t getPosition()
 	{
-		m_encoder.read();
+		return m_encoder.read();
     }
 
     /**
