@@ -27,7 +27,7 @@ public:
 	 */
 	void releaseAll()
 	{
-		for (int i = 0; i < m_handles.getSize(); i++)
+		for (size_t i = 0; i < m_handles.getSize(); i++)
 		{
 			m_handles[i]->release();
 		}

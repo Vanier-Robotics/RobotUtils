@@ -109,7 +109,7 @@ public:
 		// During each update, check which button are pressed and update necessary callbacks
 
 		// Button bindings
-		for (int i = 0; i < m_buttonBindings.getSize(); i++)
+		for (size_t i = 0; i < m_buttonBindings.getSize(); i++)
 		{
 			bool status = Crc::CrcLib::ReadDigitalChannel(m_buttonBindings[i].buttonID);
 			if (status != m_buttonBindings[i].lastValue)
@@ -121,12 +121,12 @@ public:
 		}
 
 		// Toggle button bindings
-		for (int i = 0; i < m_toggleButtonBindings.getSize(); i++)
+		for (size_t i = 0; i < m_toggleButtonBindings.getSize(); i++)
 		{
 			bool status = Crc::CrcLib::ReadDigitalChannel(m_toggleButtonBindings[i].buttonID);
 			if (status && !m_toggleButtonBindings[i].lastValue) // the button was just pressed
 			{
-				m_toggleButtonBindings[i].isToggled != m_toggleButtonBindings[i].isToggled;
+				m_toggleButtonBindings[i].isToggled = !m_toggleButtonBindings[i].isToggled;
 				m_toggleButtonBindings[i].callback(m_toggleButtonBindings[i].isToggled);
 			}
 
@@ -134,7 +134,7 @@ public:
 		}
 
 		// Digital Sensor Bindings verification
-		for (int i = 0; i < m_digitalSensorBindings.getSize(); i++)
+		for (size_t i = 0; i < m_digitalSensorBindings.getSize(); i++)
 		{
 			bool status = m_digitalSensorBindings[i].handle.getValue();
 			if (status != m_buttonBindings[i].lastValue)
